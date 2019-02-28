@@ -1,1 +1,0 @@
-# prakticheskaia_1
