@@ -1,0 +1,54 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+class Property {
+protected:
+	double worth;
+public:
+	Property() { };
+	virtual double kek() {
+		return 0;
+	};
+};
+class apartment :public Property{
+public:
+	apartment(double lil) { worth = lil; }
+	double kek() {
+		return worth / 1000;
+	}
+};
+class car :public Property {
+public:
+	car(double lil) { worth = lil; };
+	double kek() {
+		return worth / 200;
+	}
+};
+class CountryHouse:public Property {
+public:
+	CountryHouse(double lil) { worth = lil; };
+	double kek() {
+		return worth / 500;
+	}
+};
+int main()
+{
+	Property **orbidol= new Property*[7];
+	double mass[7];
+	for (int i = 0; i < 7; i++){
+		cin>>mass[i];
+	}
+	orbidol[0] = new apartment(mass[0]);
+	orbidol[1] = new apartment(mass[1]);
+	orbidol[2] = new apartment(mass[2]);
+	orbidol[3] = new car(mass[3]);
+	orbidol[4] = new car(mass[4]); 
+	orbidol[5] = new CountryHouse(mass[5]);
+	orbidol[6] = new CountryHouse(mass[6]);
+	for (int i = 0; i < 7; i++) {
+		cout << orbidol[i]->kek() << endl;
+	}
+
+
+}
