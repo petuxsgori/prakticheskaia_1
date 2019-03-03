@@ -1,0 +1,186 @@
+#include "pch.h"
+#include <iostream>
+#include <cmath>
+using namespace std;
+int obrabotka(int a) {//обработка для несуществующего номера,который мы вводим в int main()
+	while (a < 1 || a>4) {
+		cout << "неверно введенные данные,введите еще раз" << endl;
+		cin >> a;
+	}
+	return a;
+}
+void vivod2x(double a, double b) {//ф-ия вывода,если не существует двух значений
+	cout << "невозможно подсчитать оба значения, a=" << a << " b=" << b << endl;
+}
+void vivod3x(double a, double b, double n) {//ф-ия вывода,если не существует одно значение
+	cout << "невозможно подсчитать значение №=2, a=" << a << " b=" << b << " значение 1 =" << n << endl;
+}
+void vivod4x(double a, double b, double c, double d) {//ф-ия вывода,если все нашлось
+	cout << "a=" << a << " b=" << b << " значение №1 =" << c << " значение №2 =" << d << endl;
+}
+int func1(double a, double b) {
+	double m, n;
+	if (a < b) {
+		if(sin(a*b)!=0)
+		n = a * a + (a - b) / (sin(a*b));
+		else {
+			vivod2x(a, b);
+			return 0;
+		}
+	}
+	else n = pow(a-b, 1.0 / 3.0);
+	if (n < b) {
+		if (pow(sin(a), 2) - cos(n) < 0 || b == 0) {
+			vivod3x(a, b, n);
+			return 0;
+		}
+		else
+		m = (n + a) / (-b) + sqrt(pow(sin(a), 2) - cos(n));
+	}
+	if (n == b)m = b*b+tan(n*a);
+	if (n > b) {
+		if (sin(a*b) != 0)
+			m = a * a + (a - b) / (sin(a*b));
+		else {
+			vivod3x(a, b, n);
+			return 0;
+		}
+	}
+	vivod4x(a, b, n, m);
+	return 0;
+}
+int func2(double a, double b) {
+	double z, t;
+	if (a < b)z = sqrt(abs(a*a-b*b));
+	else z=1-2*cos(a)*sin(b);
+	if (z < b) {
+		if(z + a * a*b>=0)
+		t = pow(z + a * a*b, 1.0 / 3.0);
+		else {
+			vivod3x(a, b, z);
+			return 0;
+		}
+	}
+	if (z == b) {
+		if(z>0)
+		t = 1 - log(z) + cos(a*a*b);
+		else {
+			vivod3x(a, b, z);
+			return 0;
+		}
+	}
+	if (z > b) {
+		if(cos(z*a)!=0)
+		t = 1 / (cos(z*a));
+		else {
+			vivod3x(a, b, z);
+			return 0;
+		}
+	}
+	vivod4x(a, b, z, t);
+	return 0;
+}
+int func3(double a, double b) {
+	double y, t;
+	if (a < b) {
+		if(a*a - a * b + b * b !=0)
+		y = ((a - b) / (a + b))*((a + b) / (a*a - a * b + b * b));
+		else {
+			vivod2x(a, b);
+			return 0;
+		}
+	}
+	else y = a+log(b*b);
+	if (y < b) {
+		if(y*y-a>0&&a*a-y>0&& 2 * b - sqrt(a*a - y)!=0)
+		t = (2 * y + sqrt(y*y - a)) / (2 * b - sqrt(a*a - y));
+		else {
+			vivod3x(a, b, y);
+			return 0;
+		}
+	}
+	if (y == b) {
+		if(tan(a*b)!=0)
+		t = pow(sin(y), 2) + 1.0 / (tan(a - b));
+		else {
+			vivod3x(a, b, y);
+			return 0;
+		}
+	}
+	if (y > b) {
+		if(cos(b)*y!=0)
+		t = pow(y*sin(a), 1.0 / 3.0) + 1.0 / sqrt(cos(b)*y);
+		else {
+			vivod3x(a, b, y);
+			return 0;
+		}
+	}
+	vivod4x(a, b, y, t);
+	return 0;
+}
+int func4(double a, double b) {
+	double y, t;
+	if (a < b) {
+		if(b+a>0)
+		y = a + log(b + a);
+		else {
+			vivod2x(a, b);
+			return 0;
+		}
+	}
+	else {
+		if(sin(a*b>=0))
+		y = sqrt(sin(a*b));
+		else {
+			vivod2x(a, b);
+			return 0;
+		}
+	}
+	if (y < b) {
+		if (a-b!=0)
+			t = y / (a - b);
+		else {
+			vivod3x(a, b, y);
+			return 0;
+		}
+	}
+	if (y == b) {
+		if (a - b != 0 && y != 0) 
+			t = (y / (a - b) + (a + b) / (y*y));
+		else {
+			vivod3x(a, b, y);
+			return 0;
+		}
+	}
+	if (y > b)t =tan(a*b)+cos(2*a*y);
+	vivod4x(a, b, y, t);
+	return 0;
+}
+int main()
+{
+	//эта программа совмещает 4 задания второй практической
+	double a, b;
+	int q;//переменная,которая отвечает за номер задания,которое нужно выполнить
+	setlocale(0, "rus");
+	cout << "введите номер варианта,который нужно выполнять" << endl;
+	cin >> q;
+	if (q < 1 || q>4)q=obrabotka(q);//ф-ия,которая нужна если человек ввел номер задания,которого не существует
+	cout << "введите числа" << endl;
+	cin >> a >> b;
+	switch (q) {
+	case 1://задание 1
+		func1(a, b);
+		break;
+	case 2://задание 2
+		func2(a, b);
+		break;
+
+	case 3://задание 3
+		func3(a, b);
+		break;
+	case 4://задание 4
+		func4(a, b);
+		break;
+
+	}
+}
