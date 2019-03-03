@@ -1,0 +1,124 @@
+
+#include "pch.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct book {
+	int date;
+	int str;
+	string name;
+	string avtor;
+};
+struct student {
+	string name;
+	int date;
+	int bal;
+};
+struct car {
+	int date;
+	int cash;
+	string marka;
+	string model;
+};
+struct koord {
+	int x;
+	int y;
+};
+struct vettor {
+	koord lol1;
+	koord lol2;
+};
+struct biblioteque {
+	int year;
+	string name;
+	int kolvo;
+	book books[100];
+};
+
+int main(){
+	int a;
+	book kek;
+	car pocar;
+	vettor skyfall;
+	student st[50];
+	biblioteque biblio;
+	setlocale(0, "rus");
+	cout << "выберете вариант задания" << endl;
+	cin >> a;
+	switch (a)
+	{
+	case 1:
+
+		cout << "введите имя автора" << endl;
+		cin.get();
+		getline(cin, kek.avtor);
+		cout << "введите название книги" << endl;
+		getline(cin, kek.name);
+		cout << "год написания" << endl;
+		cin >> kek.date;
+		cout << "кол-во страниц" << endl;
+		cin >> kek.str;
+		cout << kek.name <<" "<<kek.avtor<<" "<< kek.date<<" " << kek.str;
+		break;
+	case 2:
+		cout << "сколько студентов?" << endl;
+		cin >> a;
+		for (int i = 0; i < a; i++) {
+			cout << "введите имя " << endl;
+			cin.get();
+			getline(cin, st[i].name);
+			cout << "год рождения" << endl;
+			cin >> st[i].date;
+			cout << "введите его средний балл после сессии" << endl;
+			cin >> st[i].bal;
+			cout << st[i].name << " " << st[i].date << " " << st[i].bal<<endl;
+		}
+			break;
+	case 3:
+
+		cout << "введите название марки автомобиля" << endl;
+		cin.get();
+		getline(cin, pocar.marka);
+		cout << "введите название модели" << endl;
+		getline(cin, pocar.model);
+		cout << "год произведения" << endl;
+		cin >> pocar.date;
+		cout << "стоимость" << endl;
+		cin >> pocar.cash;
+		cout << pocar.marka << " " << pocar.model << " " << pocar.date << " " << pocar.cash;
+		break;
+	case 4:
+		cout << "введите координаты первой точки на плоскости" << endl;
+		cin >> skyfall.lol1.x;
+		cin >> skyfall.lol1.y;
+		cout << "а теперь координаты второй" << endl;
+		cin >> skyfall.lol2.x;
+		cin >> skyfall.lol2.y;
+		cout << skyfall.lol1.x << " " << skyfall.lol1.y << " " << skyfall.lol2.x << " " << skyfall.lol2.y << " " << endl;
+		break;
+	case 5:
+		cout << "введите название библиотеки" << endl;
+		cin.get();
+		getline(cin, biblio.name);
+		cout << "введите год основания" << endl;
+		cin >> biblio.year;
+		cout << "введите кол-во книг(не большее 100)" << endl;
+		cin >> biblio.kolvo;
+		for (int i = 0; i < biblio.kolvo; i++) {
+			cout << "введите имя автора" << endl;
+			cin.get();
+			getline(cin, biblio.books[i].avtor);
+			cout << "введите название книги" << endl;
+			getline(cin, biblio.books[i].name);
+			cout << "год написания" << endl;
+			cin >> biblio.books[i].date;
+			cout << "кол-во страниц" << endl;
+			cin >> biblio.books[i].str;
+			cout << biblio.books[i].name << " " << biblio.books[i].avtor;
+			cout << " " << biblio.books[i].date << " " << biblio.books[i].str << endl;
+		}
+			break;
+	}
+
+}
