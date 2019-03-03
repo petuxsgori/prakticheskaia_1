@@ -1,0 +1,155 @@
+
+#include "pch.h"
+#include <iostream>
+#include <string>
+using namespace std;
+//эта часть будет пункт 1
+//
+class animals {
+protected:
+	 string name;
+	 int wes;
+public:
+	animals(){
+		cout << "animals->";
+	}
+};
+class cat:public animals {
+public:
+	cat(){
+		name = "myrka";
+		wes = 7;
+		cout << "cat  "<<name<<" "<<wes<<"kg ";
+	}
+};
+class parrot :public animals {
+public:
+	parrot() {
+		name = "petux";
+		wes = 1;
+		cout << "parrot  " << name << " " << wes << "kg ";
+	}
+};
+class dog :public animals {
+public:
+	dog() {
+		name = "bul";
+		wes = 15;
+		cout << "dog  " << name << " " << wes << "kg ";
+	}
+};
+//эта часть пункт 2
+//
+class figura {
+public:
+	figura() {
+		cout << "figura->";
+	}
+};
+class chetirexygolnik :public figura {
+public:
+	chetirexygolnik() {
+		cout << "chetirexygolnik->";
+	}
+};
+class romb :public chetirexygolnik {
+public:
+	romb() {
+		cout << "romb";
+	}
+};
+class priamoygolnik :public chetirexygolnik {
+public:
+	priamoygolnik() {
+		cout << "priamoygolnik";
+	}
+};
+//эта часть пункт 3
+//
+class transport {
+public:
+	transport() {
+		cout << "transport->";
+	}
+};
+class car:public transport {
+public:
+	car() {
+		cout << "car ";
+	}
+};
+class bus:public transport {
+public:
+	bus() {
+		cout << "bus ";
+	}
+};
+class velo:public transport {
+public:
+	velo() {
+		cout << "velo ";
+	}
+};
+class keyboard {
+protected:
+	bool sensor;
+};
+class screen {
+protected:
+	int dlina;
+	int shirina;
+};
+class tele :public keyboard, public screen {
+public:
+	tele() {
+		sensor = true;
+		dlina = 800;
+		shirina = 600;
+		cout <<"telephone: "<< dlina << "*" << shirina << "mm ," << sensor << " sensor" << endl;
+	}
+};
+class notebook:public keyboard, public screen {
+public:
+	notebook() {
+		sensor = false;
+		dlina = 2400;
+		shirina = 1600;
+		cout <<"notebook: "<< dlina << "*" << shirina << "mm ," << sensor << " sensor" << endl;
+	}
+};
+class comp:public keyboard, public screen {
+public:
+	comp() {
+		sensor = false;
+		dlina = 5000;
+		shirina = 8000;
+		cout <<"comp: "<< dlina << "*" << shirina << "mm ," << sensor << " sensor" << endl;
+	}
+};
+int main()
+{
+	cout << "punkt 1: ";
+	dog gig;
+	cat kik;
+	parrot lil;
+	cout << endl << endl;
+	cout << "punkt 2: ";
+	figura kek;
+	cout << " ";
+	chetirexygolnik lol;
+	cout << " ";
+	romb kok;
+	cout << " ";
+	priamoygolnik orbidol;
+	cout << endl << endl;
+	cout << "punkt 3: ";
+	car rac;
+	bus sub;
+	velo ovel;
+	cout << endl << endl;
+	cout << "punkt 4: " << endl;
+	tele elet;
+	comp pmoc;
+	notebook koobeton;
+
+}
