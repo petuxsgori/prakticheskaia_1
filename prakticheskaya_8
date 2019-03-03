@@ -1,0 +1,36 @@
+#include "pch.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+int main()
+{
+	setlocale(0, "rus");
+	char vremenno[100];
+	ifstream file("petux.txt");
+	ofstream elife("kek.txt");
+	string slovo;
+	int a;
+	cout << "какое задание делать?" << endl;
+	cin >> a;
+	switch (a) {
+	case 1:
+		if (!file.is_open())cout << "нету этого файла";
+		else {
+			while (!file.eof()) {
+				file.getline(vremenno, 100);
+				cout << vremenno << endl;
+			}
+			file.close();
+		}
+		break;
+	case 2:
+		cout << "вводите текст,пока не надоест(когда надоесть нажмите 0 и entr" << endl;
+		while (slovo != "0") {
+			getline(cin, slovo);
+			elife << slovo;
+			elife << endl;
+		}
+		elife.close();
+	}
+}
