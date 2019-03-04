@@ -1,0 +1,285 @@
+
+#include "pch.h"
+#include <iostream>
+#include <conio.h>
+#include <ctime>
+#include <vector>
+#include <Windows.h>
+using namespace std;
+bool lose = false;
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+struct zmeiyka {
+	COORD poszmei;
+	char ris;
+};
+void zastavka() {
+	for (int i = 0; i < 30; i++) {
+		cout << "                                     ";
+		if (i >= 10 && i <= 14) {
+			for (int q = 0; q < 50; q++) {
+				switch (i) {
+				case 10:
+					if  ((q >= 0 && q <= 4) || (q == 7) || (q == 11) || (q >= 14 && q <= 18) || (q >= 21 && q <= 25) || (q == 28) || (q == 31) || (q == 36)) {
+						cout << "*";
+					}
+					else cout << " ";
+					break;
+				case 11:
+					if (((q == 3) || (q >= 7 && q <= 11 && q != 9) || (q == 14) || (q == 23) || (q == 28) || (q == 30) || (q == 35) || (q == 37))) {
+						cout << "*";
+					}
+					else cout << " ";
+					break;
+				case 12:
+					if (((q == 2) || (q == 7) || (q == 11) || (q == 9) || (q >= 14 && q <= 18) || (q == 23) || (q == 28) || (q == 29) || (q == 34) || (q == 38))) {
+						cout << "*";
+					}
+					else cout << " ";
+					break;
+				case 13:
+					if ( ((q == 1) || (q == 7) || (q == 11) || (q == 14) || (q == 23) || (q == 28) || (q == 30) || (q >= 34 && q <= 38))) {
+						cout << "*";
+					}
+					else cout << " ";
+					break;
+				case 14:
+					if (((q >= 0 && q <= 4) || (q == 7) || (q == 11) || (q >= 14 && q <= 18) || (q >= 21 && q <= 25) || (q == 28) || (q == 33) || (q == 39))) {
+						cout << "*";
+					}
+					else cout << " ";
+					break;
+				}
+			}
+		}
+		if (i == 17) {
+			cout << "чтобы начать игру нажмите любую клавишу";
+		}
+		cout << endl;
+	}
+}
+void pole() {
+	for (int i = 0; i < 29; i++) {
+		for (int q = 0; q < 61; q++) {
+			if ((i == 0 || i == 28)||(q==0||q==60)) {
+				cout << "#";
+			}
+			else cout << " ";
+		}
+		cout << endl;
+	}
+}
+double level(double level) {
+	if (level == 1) return 0.3;
+	if (level == 2)return 0.17;
+	if (level == 3)return 0.06;
+	if (level == 4)return 0.03;
+}
+template <typename qe>
+qe peremesh(qe a, int i, char knop) {
+	COORD Q;
+	switch (knop) {
+	case 75:
+		Q.X = a.poszmei.X--;
+		Q.Y = a.poszmei.Y;
+		break;
+	case 77:
+		Q.X = a.poszmei.X++;
+		Q.Y = a.poszmei.Y;
+		break;
+	case 80:
+		Q.X = a.poszmei.X;
+		Q.Y = a.poszmei.Y++;
+		break;
+	case 72:
+		Q.X = a.poszmei.X;
+		Q.Y = a.poszmei.Y--;
+		break;
+	}
+	SetConsoleCursorPosition(hConsole, Q);
+	cout << a.ris;
+	return a;
+}
+template <typename qe>
+qe poyavlenie(qe a, char knop, COORD cord) {
+	switch (knop) {
+	case 75:
+		a.poszmei.X = cord.X--;
+		a.poszmei.Y = cord.Y;
+		break;
+	case 77:
+		a.poszmei.X = cord.X++;
+		a.poszmei.Y = cord.Y;
+		break;
+	case 80:
+		a.poszmei.X = cord.X;
+		a.poszmei.Y = cord.Y++;
+		break;
+	case 72:
+		a.poszmei.X = cord.X;
+		a.poszmei.Y = cord.Y--;
+		break;
+	}
+	return a;
+}
+int main()
+{
+	srand(time(0));
+	double speed, n = 1;
+	char proverka = 72,prov2,ster;
+	int kekus=1,ochki=0;
+	int a, b,x,y,cvet;
+	int razmer = 10;
+	COORD cord;
+	vector <char> knopka(razmer);
+	vector <zmeiyka> zmeka(razmer);
+	zmeiyka metka;
+	metka.poszmei.X = rand() % 59+1;
+	metka.poszmei.Y = rand() % 27+1;
+	metka.ris = '*';
+	setlocale(0, "rus");
+	zastavka();
+	ster = _getch();
+	system("cls");
+	cout << "выберете уровень сложности 1-легко,2-средне,3-сложно,4-минус пукан "<<endl;
+	ster = 0;
+	cin >> kekus;
+	speed = level(kekus);
+	cout << "управление стрелочками,пауза-esc,если готовы начать нажмите на любую кнопку"<<endl;
+	cout << "после нажатия змейка появится через 1 секунду и сразу начнет двигаться!будьте к этому готовы!нажмите пробел чтобы начать";
+	while (ster != 32) {
+		ster = _getch();
+	}
+	system("cls");
+	double start = clock(), end = clock(), t = (end - start) / CLOCKS_PER_SEC;
+	system("cls");
+	pole();
+	for (int i = 0; i < razmer; i++) {
+		zmeka[i].poszmei.X = 30+i;
+		zmeka[i].poszmei.Y = 10;
+		zmeka[i].ris = 'x';
+		knopka[i] = 75;
+	}
+	zmeka[razmer - 1].ris = ' ';
+	while (!lose) {
+		t = (end - start) / CLOCKS_PER_SEC;
+		cord = zmeka[razmer - 1].poszmei;
+		SetConsoleCursorPosition(hConsole, metka.poszmei);
+		cout << metka.ris;
+		end = clock();
+		if (_kbhit()) {
+			knopka[0] = _getch();
+		}
+		if ((knopka[0] == 27)&&proverka!=knopka[0]) {
+			SetConsoleCursorPosition(hConsole, { 80,10 });
+			SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+			cout << "пауза.Нажмите пробел чтобы продолжить";
+			while (knopka[0]!=32) {
+				end = 0;
+				n=1;
+				start = 0;
+				knopka[0] = _getch();
+			}
+			start = clock();
+			end = clock();
+			SetConsoleCursorPosition(hConsole, { 80,10 });
+			cout << "                                      ";
+		}
+		if (knopka[0] != 75 && knopka[0] != 72 && knopka[0] != 80 && knopka[0] != 77) {
+			knopka[0] = proverka;
+		}
+		proverka = knopka[0];
+		prov2 = knopka[razmer - 1];
+		if ((t > n)) {
+			cvet = rand() % 15 + 1;
+			SetConsoleTextAttribute(hConsole, (WORD)((0 <<4) | cvet));
+			for (int i = 0; i < razmer - 1; i++) {
+				switch (knopka[i]) {
+				case 75:
+					if (knopka[i + 1] != 77) {
+						zmeka[0].ris = '<';
+						zmeka[i] = peremesh(zmeka[i], i, knopka[i]);
+					}
+					else {
+						knopka[0] = knopka[1];
+						i--;
+					}
+					break;
+				case 77:
+					if (knopka[i + 1] != 75) {
+						zmeka[0].ris = '>';
+						zmeka[i] = peremesh(zmeka[i], i, knopka[i]);
+					}
+					else {
+						knopka[0] = knopka[1];
+						i--;
+					}
+					break;
+				case 80:
+					if (knopka[i + 1] != 72) {
+						zmeka[0].ris = 'v';
+						zmeka[i] = peremesh(zmeka[i], i, knopka[i]);
+					}
+					else {
+						knopka[0] = knopka[1];
+						i--;
+					}
+					break;
+				case 72:
+					if (knopka[i + 1] != 80) {
+						zmeka[0].ris = '^';
+						zmeka[i] = peremesh(zmeka[i], i, knopka[i]);
+					}
+					else {
+						knopka[0] = knopka[1];
+						i--;
+					}
+					break;
+				}
+			}
+			SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
+			zmeka[razmer - 1] = peremesh(zmeka[razmer - 1], razmer - 1, knopka[razmer - 1]);
+			n =n+speed;
+			if (zmeka[0].poszmei.X == metka.poszmei.X&&zmeka[0].poszmei.Y == metka.poszmei.Y) {
+				razmer++;
+				zmeka.resize(razmer);
+				knopka.resize(razmer);
+				knopka[razmer - 1] = prov2;
+				zmeka[razmer - 2].ris = 'x';
+				zmeka[razmer - 1] = poyavlenie(zmeka[razmer - 1], prov2, cord);
+				metka.poszmei.X = rand() % 59+1;
+				metka.poszmei.Y = rand() % 27+1;
+				for (int i = 0; i < razmer; i++) {
+					if (zmeka[i].poszmei.X == metka.poszmei.X&&zmeka[i].poszmei.Y == metka.poszmei.Y) {
+						metka.poszmei.X = rand() % 59 + 1;
+						metka.poszmei.Y = rand() % 27 + 1;
+					}
+				}
+				ochki=ochki+5;
+				metka.ris = '*';
+				zmeka[razmer - 1].ris = ' ';
+			}
+			zmeka[razmer - 1].ris = ' ';
+			for (int i = razmer - 1; i > 0; i--) {
+				knopka[i] = knopka[i - 1];
+			}
+		}
+		if (zmeka[0].poszmei.X == 0 || zmeka[0].poszmei.Y == 0 || zmeka[0].poszmei.X == 60 || zmeka[0].poszmei.Y == 28)
+			lose = true;
+		for (int i = 0; i < razmer;i++) {
+			for (int q = i+1; q < razmer; q++) {
+				a = zmeka[i].poszmei.X;
+				b = zmeka[i].poszmei.Y;
+				x = zmeka[q].poszmei.X;
+				y = zmeka[q].poszmei.Y;
+				if (a==x&&b==y)
+					lose = true;
+			}
+		}
+
+	}
+	SetConsoleCursorPosition(hConsole, { 40,40 });
+	cout << "к сожалению,вы проиграли(((";
+	SetConsoleCursorPosition(hConsole, { 40,41 });
+	cout << "ваше количество очков : " << ochki;
+	return 0;
+}
