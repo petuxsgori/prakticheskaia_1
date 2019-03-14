@@ -1,12 +1,11 @@
-
 #include "pch.h"
 #include <iostream>
 #include <conio.h>
 #include <ctime>
 #include <vector>
 #include <Windows.h>
+#include <string>
 using namespace std;
-bool lose = false;
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 struct zmeiyka {
 	COORD poszmei;
@@ -69,10 +68,10 @@ void pole() {
 	}
 }
 double level(double level) {
-	if (level == 1) return 0.3;
-	if (level == 2)return 0.17;
-	if (level == 3)return 0.06;
-	if (level == 4)return 0.03;
+	if (level == 1) return 0.25;
+	if (level == 2)return 0.16;
+	if (level == 3)return 0.07;
+	if (level == 4)return 0.035;
 }
 template <typename qe>
 qe peremesh(qe a, int i, char knop) {
@@ -124,11 +123,14 @@ qe poyavlenie(qe a, char knop, COORD cord) {
 int main()
 {
 	srand(time(0));
+	bool reshim=false;
+	bool lose = false;
 	double speed, n = 1;
 	char proverka = 72,prov2,ster;
 	int kekus=1,ochki=0;
 	int a, b,x,y,cvet;
 	int razmer = 10;
+	char restart=0;
 	COORD cord;
 	vector <char> knopka(razmer);
 	vector <zmeiyka> zmeka(razmer);
@@ -144,7 +146,9 @@ int main()
 	ster = 0;
 	cin >> kekus;
 	speed = level(kekus);
-	cout << "управление стрелочками,пауза-esc,если готовы начать нажмите на любую кнопку"<<endl;
+	cout << "змейка белая(0) или меняет цвет(1)?"<<endl;
+	cin >> reshim;
+	cout << "пауза-esc,если готовы начать нажмите на любую кнопку"<<endl;
 	cout << "после нажатия змейка появится через 1 секунду и сразу начнет двигаться!будьте к этому готовы!нажмите пробел чтобы начать";
 	while (ster != 32) {
 		ster = _getch();
@@ -184,14 +188,16 @@ int main()
 			SetConsoleCursorPosition(hConsole, { 80,10 });
 			cout << "                                      ";
 		}
-		if (knopka[0] != 75 && knopka[0] != 72 && knopka[0] != 80 && knopka[0] != 77) {
+		if (knopka[0] != 75 && knopka[0] != 77 && knopka[0] != 80 && knopka[0] != 72) {
 			knopka[0] = proverka;
 		}
 		proverka = knopka[0];
 		prov2 = knopka[razmer - 1];
 		if ((t > n)) {
-			cvet = rand() % 15 + 1;
-			SetConsoleTextAttribute(hConsole, (WORD)((0 <<4) | cvet));
+			if (reshim == 1) {
+				cvet = rand() % 15 + 1;
+				SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | cvet));
+			}
 			for (int i = 0; i < razmer - 1; i++) {
 				switch (knopka[i]) {
 				case 75:
@@ -243,6 +249,7 @@ int main()
 				razmer++;
 				zmeka.resize(razmer);
 				knopka.resize(razmer);
+				//speed = speed - 0.001;
 				knopka[razmer - 1] = prov2;
 				zmeka[razmer - 2].ris = 'x';
 				zmeka[razmer - 1] = poyavlenie(zmeka[razmer - 1], prov2, cord);
@@ -281,5 +288,12 @@ int main()
 	cout << "к сожалению,вы проиграли(((";
 	SetConsoleCursorPosition(hConsole, { 40,41 });
 	cout << "ваше количество очков : " << ochki;
+	SetConsoleCursorPosition(hConsole, { 40,42 });
+	cout << "если хотите начать заново нажмите пробел,иначе-esc";
+	restart = _getch();
+	while (restart != 32 && restart != 27) {
+		restart = _getch();
+	}
+	if (restart == 32)main();
 	return 0;
 }
