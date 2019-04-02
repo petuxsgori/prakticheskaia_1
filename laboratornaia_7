@@ -1,0 +1,62 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Human {
+protected:
+	string suname, name, midname;
+	int age;
+public:
+	Human() {
+	}
+	virtual void print() = 0;
+	~Human() {
+	}
+};
+
+class student :public Human {
+private:
+	bool on_lesson;
+public:
+	student(string suname, string name, string midname, int age,bool on_lesson) :Human() {
+		this->suname = suname;
+		this->name = name;
+		this->midname = midname;
+		this->age = age;
+		this->on_lesson = on_lesson;
+	}
+	void print() {
+		cout << suname<<" "<< name<<" "<< midname<<", "<< age<<" лет, на уроке(1-был,0-не был): "<< on_lesson<<endl;
+	}
+	~student(){
+		cout << "класс студент уничтожен" << endl;
+	}
+};
+class boss :public Human {
+private:
+	int number_on_workes;
+public:
+	boss(string suname, string name, string midname, int age, int number_on_workes) :Human() {
+		this->suname = suname;
+		this->name = name;
+		this->midname = midname;
+		this->age = age;
+		this->number_on_workes = number_on_workes;
+	}
+	void print() {
+		cout << suname << " " << name << " " << midname << ", " << age << " лет, номер работы: " << number_on_workes<<endl;
+	}
+	~boss() {
+		cout << "класс босс уничтожен" << endl;
+	}
+};
+int main()
+{
+	setlocale(0, "rus");
+	student leha = { "anisimov","alex","yrievich",19,true };
+	leha.print();
+	boss karpov = { "karpov","dmitri","anatolievich",50,1488 };
+	karpov.print();
+
+}
