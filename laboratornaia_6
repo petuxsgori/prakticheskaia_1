@@ -1,0 +1,135 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+using namespace std;
+class student {//6.1
+public:
+	string name;
+	string famile;
+	int cource;
+	int number_group;
+	char poseshenie_in_month[30];
+	void zapoln() {
+		cin >> name >> famile >> cource >> number_group;
+	}
+	void prov() {
+		cout << "посещение студента за этот месяц: " << poseshenie_in_month << endl;
+	}
+};
+class starosta:public student {
+public:
+	void prov(student a) {
+		if (this->cource == a.cource&&this->number_group == a.number_group) {
+			cout << name << " " << famile << " является старостой " << a.name <<" "<<a.famile << endl;
+		}
+		else cout << name << " " << famile << " не является старостой " << a.name <<" "<<a.famile << endl;
+	}
+	void poseshenie(student &a) {
+		cout << "посещение пишите в строчку символами n(не был) и b(был) : " << endl;
+		cin >> a.poseshenie_in_month;
+	}
+
+};
+//6.2
+class alive {
+public:
+	string size;
+	string favorite_food;
+	string name, rod_zaniatii;
+	void zapoln() {
+		cin >> name>>size >> favorite_food >> rod_zaniatii;
+	}
+	void vivod() {
+		cout << name<<" "<<size<<" "<< favorite_food<<" "<< rod_zaniatii << endl;
+	}
+};
+class fish:public alive {
+public:
+	fish(string name,string size) {
+		this->name = name;
+		this->size = size;
+		favorite_food = "chervi";
+		rod_zaniatii = "swimming";
+	}
+};
+class bird :public alive {
+public:
+	bird(string name,string size) {
+		this->name = name;
+		this->size = size;
+		favorite_food = "hlebushek";
+		rod_zaniatii = "fly";
+	}
+};
+class animals :public alive {
+public:
+	animals(string name,string size,string favorite_food) {
+		this->name = name;
+		this->size = size;
+		this->favorite_food=favorite_food;
+		rod_zaniatii = "run";
+	}
+};
+//6.3
+class cat :public animals {
+public:
+	cat(string name, string size, string favorite_food):animals(name,size,favorite_food) {
+		favorite_food == "koshachii";
+		size = "medium";
+	}
+};
+class dog :public animals {
+public:
+	dog(string name, string size, string favorite_food) :animals(name,size, favorite_food) {
+		favorite_food == "meat";
+		size = "big";
+	}
+};
+int main()
+{
+	setlocale(0, "rus");
+	student kek;
+	starosta tolek;
+	alive lol;
+	int k;
+	cin >> k;
+	switch (k) {
+	case 1://6.1
+		kek.zapoln();
+		tolek.zapoln();
+		tolek.prov(kek);
+		tolek.poseshenie(kek);
+		kek.prov();
+		break;
+	case 2://6.2 & 6.3
+		lol.zapoln();
+		if (lol.favorite_food == "chervi" && lol.rod_zaniatii == "swimming") {
+			fish lol1 = { lol.name,lol.size};
+			cout << "это рыба.Параметры:";
+			lol1.vivod();
+		}
+		if (lol.favorite_food == "hlebushek" && lol.rod_zaniatii == "fly") {
+			bird lol1 = { lol.name,lol.size, };
+			cout << "это птица.параметры: ";
+			lol1.vivod();
+		}
+		if (lol.rod_zaniatii == "run") {
+			animals lol1 = { lol.name,lol.size,lol.favorite_food };
+			if (lol1.size == "medium" && lol1.favorite_food == "koshachii") {
+				cat lol1 = { lol.name,lol.size,lol.favorite_food };
+				cout << "это кошка.параметры: ";
+				lol1.vivod();
+			}
+			if (lol1.size == "big" && lol1.favorite_food == "meat") {
+				dog lol1 = { lol.name,lol.size,lol.favorite_food };
+				cout << "это собака.параметры: ";
+				lol1.vivod();
+			}
+			else {
+				cout << "это животное.параметры: ";
+				lol1.vivod();
+			}
+		}
+		break;
+	}
+}
