@@ -1,0 +1,113 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+class complex {//5.1
+public:
+	double real;
+	double imag;
+	void operator +(complex);
+	void operator -(complex);
+	void operator =(complex);
+	void operator<<(complex);
+	void operator>>(complex);
+	bool friend operator==(complex a, complex b) {
+		if (a.real == b.real&&a.imag == b.imag)return true;
+		else return false;
+	}
+	
+	void VIVOD() {
+		cout << real << " " << imag << endl;
+	}
+};
+void complex::operator +(complex a) {
+	real =real+a.real;
+	imag =imag+a.imag;
+}
+void complex::operator-(complex a) {
+	real = real - a.real;
+	imag = imag - a.imag;
+}
+void complex::operator=(complex a) {
+	real = a.real ;
+	imag = a.imag ;
+}
+void complex::operator<<(complex a) {
+	cout << a.real << " " << a.imag << endl;
+}
+void complex::operator>>(complex a) {
+	cin >> a.real;
+	cin>>a.imag;
+	this->real = a.real;
+	this->imag = a.imag;
+}
+
+//5.2
+class Vector {
+public:
+	double X, Y;
+	double abs() {
+		return sqrt(pow(X, 2) + pow(Y, 2));
+	}
+	Vector symm(Vector a, Vector b) {
+		Vector C = { a.X + b.X , a.Y + b.Y };
+		return C;
+	}
+	Vector razn(Vector a, Vector b) {
+		Vector C = { a.X - b.X , a.Y - b.Y };
+		return C;
+	}
+	void operator=(Vector);
+	void operator>>(Vector);
+	void operator<<(Vector);
+	bool friend operator==(Vector a, Vector b) {
+		if (a.X == b.X&&a.Y == b.Y)return true;
+		else return false;
+	}
+};
+void Vector::operator=(Vector kek) {
+	this->X = kek.X;
+	this->Y = kek.Y;
+}
+void Vector::operator>>(Vector kek) {
+	cin >> kek.X >> kek.Y;
+	this->X = kek.X;
+	this->Y = kek.Y;
+}
+void Vector::operator<<(Vector kek) {
+	cout << "(" << kek.X << "," << kek.Y << ")\n";
+}
+int main()
+{
+	complex a = { 5,10 };
+	complex chislo = { -5,10 };
+	complex kuk;
+	complex orbidol = {0,0};
+	Vector lol = { 0,0 }, lolk = { 0,0 };
+	int k;
+	cin >> k;
+	switch (k) {
+	case 1://5.1
+		if (chislo == a) {
+			cout << "a==chislo" << endl;
+		}
+		else cout << "a!=chislo" << endl;
+		orbidol >> orbidol;
+		orbidol << orbidol;
+		chislo.VIVOD();
+		kuk = chislo;
+		kuk + a;
+		kuk.VIVOD();
+		chislo - a;
+		chislo.VIVOD();
+		break;
+	case 2://5.2
+		lol>> lol;
+		lol << lol;
+		lolk >> lolk;
+		lolk << lolk;
+		if (lol == lolk)cout << "lol==lolk" << endl;
+		else cout << "lol!=lolk" << endl;
+		break;
+	}
+}
