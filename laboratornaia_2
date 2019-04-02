@@ -1,0 +1,82 @@
+#include "pch.h"
+#include <iostream>
+#include <ctime>
+using namespace std;
+//2.1
+int symm(int a,int b) { return a+b; }
+int razn(int a, int b) { return a-b; }
+int delit(int a, int b) { return a/b; }
+//2.2
+int *(pervoe(int *mass)) {
+	for (int i = 0; i < 3; i++) {
+		swap(mass[i], mass[5 - i]);
+	}
+	return mass;
+}
+int *(vtoroe(int *mass)) {
+	int min = 10000,mini=0;
+	for (int i = 0; i < 6; i++) {
+		for (int q = i; q < 6; q++) {
+			if (mass[q] < min) {
+				mini = q;
+				min = mass[q];
+			}
+		}
+		swap(mass[i], mass[mini]);
+		min = 10000;
+	}
+	return mass;
+}
+int *(tretie(int *mass)) {
+	int max = 0, mini = 0;
+	for (int i = 0; i < 6; i++) {
+		for (int q = i; q < 6; q++) {
+			if (mass[q] >max) {
+				mini = q;
+				max = mass[q];
+			}
+		}
+		swap(mass[i], mass[mini]);
+		max = 0;
+	}
+	return mass;
+}
+int*(*raspr(int *mass))(int *) {
+	int symm = 0;
+	for (int i = 1; i < 6; i++) 
+		symm = symm + mass[i];
+	if (mass[0] == symm)return pervoe;
+	if (mass[0] < symm)return vtoroe;
+	if (mass[0] > symm)return tretie;
+}
+
+int main()
+{
+	srand(time(0));
+	int kek, a, b,lel;
+	int* mass=new int[6];
+	int(*funk[3])(int a, int b) = { symm,razn,delit };
+	int*(*raspred)(int []);
+	cin >> lel;
+	switch (lel) {
+	case 1://2.1
+		cin >> a >> b;
+		if (a < b&&a%b != 0)kek = funk[0](a, b);
+		if (a > b&&a%b != 0)kek = funk[1](a, b);
+		if (a > b&&a%b == 0)kek = funk[2](a, b);
+		cout << kek;
+		break;
+	case 2://2.2
+		for (int i = 0; i < 6; i++) {
+			mass[i] = rand() % 100;
+			cout << mass[i] << " ";
+		}
+		cout << endl;
+		raspred = raspr(mass);
+		mass = raspred(mass);
+		for (int i = 0; i < 6; i++) {
+			cout << mass[i] << " ";
+		}
+		break;
+	}
+}
