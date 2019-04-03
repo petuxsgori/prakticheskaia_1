@@ -1,0 +1,90 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+#include <vector>
+#include <list>
+#include <queue>
+#include <iterator>
+using namespace std;
+
+class student {
+public:
+	string name;
+	string famile;
+	int cource;
+	int number_group;
+	void zapoln() {
+		cin >> name >> famile >> cource >> number_group;
+	}
+	void vivod() {
+		cout << name << " " << famile << " " << cource << " " << number_group<<endl;
+	}
+};
+class complex {
+public:
+	double real;
+	double imag;
+	void vvod() {
+		cin >> real >> imag;
+	}
+};
+class car {
+public:
+	string marka;
+	int nomer;
+};
+int main()
+{
+	setlocale(0, "rus");
+	int n = 4,k,h,kol_vo;
+	cin >> k;
+	vector <student> stud(n);
+	list <complex> com;
+	queue <car> avtoochered;
+	complex comp[5];
+	car mashina;
+	switch (k) {
+	case 1:
+		stud.resize(n + 1);
+		n++;
+		for (int i = 0; i < n; i++) {
+			stud[i].zapoln();
+		}
+		for (int i = 0; i < n; i++) {
+			stud[i].vivod();
+		}
+		break;
+	case 2:
+		for (int i = 0; i < 5; i++) {
+			comp[i].vvod();
+			com.push_front(comp[i]);
+		}
+		break;
+	case 3:
+		cout << "сколько часов работает автомойка?" << endl;
+		cin >> h;
+		cout << "автомойка за час может помыть 4 машины" << endl;
+		for (int i = 0; i < h; i++) {
+			cout << "сколько машин приехало за "<<i+1<<" час? ";
+			cin >> kol_vo;
+			if (kol_vo > 0) {
+				for (int q = 0; q < kol_vo; q++) {
+					cin >> mashina.marka >> mashina.nomer;
+					avtoochered.push(mashina);
+				}
+			}
+			else {
+				cout << "ни одной машины за этот час не заехало"<< endl;
+			}
+			for (int i = 0; i < 4; i++) {
+				mashina = avtoochered.front();
+				cout << "машина марки " << mashina.marka << "с номерами " << mashina.nomer << "была помыта" << endl;
+				avtoochered.pop();
+				if (avtoochered.size() == 0)break;
+			}
+		}
+		if (avtoochered.size() > 0)cout << "автомойка не успела помыть всех клиентов" << endl;
+		else cout << "все машины помыты за этот день" << endl;
+		break;
+	}
+}
