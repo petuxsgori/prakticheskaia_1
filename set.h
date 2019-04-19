@@ -22,8 +22,8 @@ public:
 	int sizemn() {
 		return n;
 	}
-	void vivod(int i) {
-		cout << x[i];
+	t vivod(int i) {
+		return x[i];
 	}
 	void erase(int a);
 };
