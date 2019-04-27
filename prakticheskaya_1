@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	int a,b;
+	int a,b,c;
 	int chisl1, chisl2;//тут я задаю переменные
 	double ch1, ch2;
 	string name;
@@ -25,16 +25,16 @@ int main()
 		if (b == 1) {
 			cin >> chisl1 >> chisl2;
 			cout << "какую операцию вы хотите совершить?(сложение-1,вычитание-2)" << endl;
-			cin >> b;
-			if (b == 1)cout << chisl1 + chisl2;
-			if (b == 2)cout << chisl1 - chisl2;
+			cin >> c;
+			if (c == 1)cout << chisl1 + chisl2;
+			if (c == 2)cout << chisl1 - chisl2;
 		}
 		if (b == 2) {
 			cin >> ch1 >> ch2;
 			cout << "какую операцию вы хотите совершить?(сложение-1,вычитание-2)" << endl;
-			cin >> b;
-			if (b == 1)cout << ch1 + ch2;
-			if (b == 2)cout << ch1 - ch2;
+			cin >> c;
+			if (c == 1)cout << ch1 + ch2;
+			if (c == 2)cout << ch1 - ch2;
 		}
 		break;
 	}
