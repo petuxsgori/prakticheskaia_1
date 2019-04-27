@@ -13,7 +13,7 @@ struct book {
 struct student {
 	string name;
 	int date;
-	int bal;
+	double bal;
 };
 struct car {
 	int date;
@@ -67,7 +67,7 @@ int main(){
 		for (int i = 0; i < a; i++) {
 			cout << "введите имя " << endl;
 			cin.get();
-			getline(cin, st[i].name);
+			cin>>st[i].name;
 			cout << "год рождения" << endl;
 			cin >> st[i].date;
 			cout << "введите его средний балл после сессии" << endl;
