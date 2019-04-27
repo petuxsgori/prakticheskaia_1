@@ -52,6 +52,7 @@ int main()
 	int a;
 	int** pipidastr = new int*[10];
 	int* kekus = new int[12];
+	cout << "выберете вариант задания" << endl;
 	cin >> zadanie;
 	switch (zadanie) {
 	case 1://задание 1
