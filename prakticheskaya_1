@@ -1,26 +1,17 @@
-# prakticheskaia_1\
 #include "pch.h"
 #include <iostream>
 #include <string>
 using namespace std;
-int obrabotka(int a) {
-	while (a != 1 && a != 2) {
-		cout << "неверно введенные данные,введите еще раз" << endl;
-		cin >> a;
-	}
-	return a;
-}
 
 int main()
 {
 	int a,b;
 	int chisl1, chisl2;//тут я задаю переменные
+	double ch1, ch2;
 	string name;
 	setlocale(0, "rus");
 	cout << "какой вариант практической вы хотите сделать?" << endl;
 	cin >> a;
-	if (a != 1 && a != 2)a=obrabotka(a);//это условие обрабатывает исключения,
-	//если человек ввел задание,которого не существует
 	switch (a) {//вариант задания(или 1,или 2)
 	case 1:
 		cout << "введите ваше имя" << endl;
@@ -30,14 +21,21 @@ int main()
 	case 2:
 		cout << "с какими числами вы хотите проводить операции?(целые-1,с плавающей запятой-2)" << endl;
 		cin >> b;
-		if (b != 1 && b != 2)b=obrabotka(b);//если введено число,обозначающая операцию,которой нету
 		cout << "введите числа" << endl;
-		cin >> chisl1 >> chisl2;
-		cout << "какую операцию вы хотите совершить?(сложение-1,вычитание-2)" << endl;
-		cin >> b;
-		if (b != 1 && b != 2)b=obrabotka(b);//тоже обработка исключений
-		if (b == 1)cout << chisl1 + chisl2;
-		if (b == 2)cout << chisl1 - chisl2;
+		if (b == 1) {
+			cin >> chisl1 >> chisl2;
+			cout << "какую операцию вы хотите совершить?(сложение-1,вычитание-2)" << endl;
+			cin >> b;
+			if (b == 1)cout << chisl1 + chisl2;
+			if (b == 2)cout << chisl1 - chisl2;
+		}
+		if (b == 2) {
+			cin >> ch1 >> ch2;
+			cout << "какую операцию вы хотите совершить?(сложение-1,вычитание-2)" << endl;
+			cin >> b;
+			if (b == 1)cout << ch1 + ch2;
+			if (b == 2)cout << ch1 - ch2;
+		}
 		break;
 	}
 }
