@@ -16,7 +16,6 @@ int main()
 	while (!endprog) {
 		cout << "какую операцию вы хотите совершить с комплексными числами?(1:+,2:-,3:*,4:/,5:выйти из программы)" << endl;
 		cin >> kek;
-		system("cls");
 		switch (kek) {
 		case 1:
 			vvod(a, b);
