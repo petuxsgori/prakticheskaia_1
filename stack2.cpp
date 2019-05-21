@@ -1,4 +1,3 @@
-
 #include "pch.h"
 #include <string>
 #include <iostream>
@@ -53,9 +52,10 @@ int main()
 		vremia.push(ke[i]);
 	}
 	vremia.erase(2);
-	if (vremia.prov(ke[2]))cout << "элемент  есть" << endl;
-	else cout << " его нету" << endl;
-	cout << "оставшиеся элементы множества:" << endl;
+	cout << "проверка на то,осталась ли вторая дата после удаления ее из множества" << endl;
+	if (vremia.prov(ke[2]))cout << "дата  есть" << endl;
+	else cout << " даты нету" << endl;
+	cout << "оставшиеся даты множества:" << endl;
 	for (int i = 0; i < vremia.sizemn(); i++) {
 		ke[i]=vremia.vivod(i);
 		cout << ke[i].day << " " << ke[i].name_month << " " << ke[i].year << endl;
